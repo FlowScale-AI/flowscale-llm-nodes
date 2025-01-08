@@ -45,6 +45,9 @@ class OpenAIAPI:
     CATEGORY = "llm"
 
     def api_call(self, model, system_prompt, prompt, response_format, temperature, top_p, max_completion_tokens, presence_penalty, frequency_penalty):
+        if prompt == "" or prompt == "exit":
+            return ("", )
+        
         openai_api_key = os.environ.get("OPENAI_API_KEY")
         
         if not openai_api_key:
