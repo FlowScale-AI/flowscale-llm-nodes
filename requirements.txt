@@ -1,0 +1,7 @@
+python-dotenv
+openai
+PyPDF2
+langchain
+langchain-astradb
+astrapy
+requests
