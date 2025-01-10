@@ -6,14 +6,16 @@ from .nodes.vectordb.astradb import AstraDBStoreEmbeddingsNode
 
 from .utilitynodes.fileloader import FileLoaderNode
 from .utilitynodes.json_extracter import ExtractPropertyNode
+from .utilitynodes.webhook import WebhookSender
 
 NODE_CLASS_MAPPINGS = {
   "openai": OpenAIAPI,
   "openai_embedding": OpenAIEmbedding,
   "astradb_store_embeddings": AstraDBStoreEmbeddingsNode,
-  "json_extract_property": ExtractPropertyNode,
   
-  "file_loader": FileLoaderNode
+  "json_extract_property": ExtractPropertyNode,
+  "file_loader": FileLoaderNode,
+  "webhook_sender": WebhookSender
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -22,5 +24,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
   "astradb_store_embeddings": "[FS] AstraDB Store Embeddings",
   
   "file_loader": "[FS] File Loader",
-  "json_extract_property": "[FS] JSON Extract Property"
+  "json_extract_property": "[FS] JSON Extract Property",
+  "webhook_sender": "[FS] Webhook"
 }
