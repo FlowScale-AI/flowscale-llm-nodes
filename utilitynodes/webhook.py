@@ -10,17 +10,20 @@ class WebhookSender:
                 "property_name": ("STRING",),
                 "property_value": ("STRING",),
                 "identifier": ("STRING",),
-            }
+            },
+            "optional": {
+                "context": ("STRING",),
+            },
         }
 
     RETURN_TYPES = ("STRING",)
     FUNCTION = "send_to_webhook"
     CATEGORY = "Custom/Webhook"
 
-    def send_to_webhook(self, webhook_url, property_name, property_value, identifier):
+    def send_to_webhook(self, webhook_url, property_name, property_value, identifier, context=None):
         try:
             print("Sending to webhook")
-            input_dict = {property_name: property_value, "identifier": identifier}
+            input_dict = {property_name: property_value, "identifier": identifier, "context": context}
             response = requests.post(webhook_url, json=input_dict)
             response.raise_for_status()
             print(response.status_code)
