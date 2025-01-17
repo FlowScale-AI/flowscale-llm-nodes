@@ -27,7 +27,6 @@ class AstraOpenAISearchNode:
         return {
             "required": {
                 "search_query": ("STRING", {"multiline": False, "default": ""}),
-                "openai_api_key": ("STRING", {"multiline": False, "default": ""}),
                 "astradb_token": ("STRING", {"multiline": False, "default": ""}),
                 "astradb_endpoint": ("STRING", {"multiline": False, "default": ""}),
                 "collection_name": ("STRING", {"multiline": False, "default": ""}),
@@ -42,7 +41,6 @@ class AstraOpenAISearchNode:
     def search_astra(
         self,
         search_query: str,
-        openai_api_key: str,
         astradb_token: str,
         astradb_endpoint: str,
         collection_name: str,
@@ -53,7 +51,7 @@ class AstraOpenAISearchNode:
         Returns the JSON string of search results.
         """
         # 1) Generate Embedding with OpenAI
-        embedding = self._generate_openai_embedding(search_query, openai_api_key)
+        embedding = self._generate_openai_embedding(search_query)
         logger.info(f"Generated embedding: {embedding}")
         # 2) Search in Astra DB
         #    Since we don't have an out-of-the-box "AstraDBVectorStore" import here, 
@@ -80,7 +78,7 @@ class AstraOpenAISearchNode:
         
         return ("\n".join(formatted_results),)
 
-    def _generate_openai_embedding(self, text: str, openai_api_key: str, embedding_model: str = "text-embedding-3-small"):
+    def _generate_openai_embedding(self, text: str, embedding_model: str = "text-embedding-3-small"):
         openai_api_key = os.environ.get("OPENAI_API_KEY")
         
         if not openai_api_key:

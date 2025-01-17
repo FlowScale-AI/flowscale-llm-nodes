@@ -2,7 +2,7 @@ from .nodes.llm.openai import OpenAIAPI
 from .nodes.llm.brand_voice import OpenAIBrandVoiceReformatter
 from .nodes.embedding.openai import OpenAIEmbedding
 from .nodes.vectordb.astradb import AstraDBStoreEmbeddingsNode
-from .nodes.vectordb.astradb_search import AstraOpenAISearchNode
+from .nodes.vectordb import AstraOpenAISearchNode, AstraOpenAIIngestNode
 
 from .utilitynodes.fileloader import FileLoaderNode
 from .utilitynodes.json_extracter import ExtractPropertyNode
@@ -14,6 +14,7 @@ NODE_CLASS_MAPPINGS = {
   "openai_embedding": OpenAIEmbedding,
   "astradb_store_embeddings": AstraDBStoreEmbeddingsNode,
   "astradb_search": AstraOpenAISearchNode,
+  "astradb_ingest": AstraOpenAIIngestNode,
   
   "json_extract_property": ExtractPropertyNode,
   "file_loader": FileLoaderNode,
@@ -26,6 +27,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
   "openai_embedding": "[FS] OpenAI Embedding",
   "astradb_store_embeddings": "[FS] AstraDB Store Embeddings",
   "astradb_search": "[FS] AstraDB Search",
+  "astradb_ingest": "[FS] AstraDB Ingest",
   
   "file_loader": "[FS] File Loader",
   "json_extract_property": "[FS] JSON Extract Property",
