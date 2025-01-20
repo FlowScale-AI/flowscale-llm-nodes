@@ -34,6 +34,7 @@ class AstraOpenAIIngestNode:
                 "astradb_endpoint": ("STRING", {"multiline": False, "default": ""}),
                 "collection_name": ("STRING", {"multiline": False, "default": ""}),
                 "chunk_size": ("INT", {"default": 1000}),
+                "conversation_id": ("STRING", {"multiline": False, "default": ""}),
             }
         }
 
@@ -48,6 +49,7 @@ class AstraOpenAIIngestNode:
         astradb_endpoint: str,
         collection_name: str,
         chunk_size: int,
+        conversation_id: str
     ) -> Tuple[str]:
         """
         Main function for ingestion:
@@ -73,7 +75,8 @@ class AstraOpenAIIngestNode:
                 astradb_endpoint,
                 collection_name,
                 chunks,
-                embeddings
+                embeddings,
+                conversation_id
             )
         except Exception as e:
             logger.exception("Error while storing document in Astra DB.")
@@ -116,6 +119,7 @@ class AstraOpenAIIngestNode:
         collection_name: str,
         chunks: List[str],
         embeddings: List[List[float]],
+        conversation_id: str
     ):
         """
         Uses astrapy’s DataAPIClient to connect to Astra DB and insert a new document
@@ -142,6 +146,7 @@ class AstraOpenAIIngestNode:
             documents.append(
                 {
                     "content": chunk,
+                    "conversation_id": conversation_id,
                     "$vector": embedding,
                 }
             )

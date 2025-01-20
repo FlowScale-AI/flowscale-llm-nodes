@@ -30,6 +30,7 @@ class AstraOpenAISearchNode:
                 "astradb_token": ("STRING", {"multiline": False, "default": ""}),
                 "astradb_endpoint": ("STRING", {"multiline": False, "default": ""}),
                 "collection_name": ("STRING", {"multiline": False, "default": ""}),
+                "conversation_id": ("STRING", {"multiline": False, "default": ""}),
             },
         }
 
@@ -44,6 +45,7 @@ class AstraOpenAISearchNode:
         astradb_token: str,
         astradb_endpoint: str,
         collection_name: str,
+        conversation_id: str
     ) -> Tuple[str]:
         """
         Main function for the node. Generates an embedding using OpenAI, 
@@ -64,7 +66,8 @@ class AstraOpenAISearchNode:
             astradb_token, 
             astradb_endpoint, 
             collection_name, 
-            embedding
+            embedding,
+            conversation_id
             # keyspace,
             # top_k
         )
@@ -98,6 +101,7 @@ class AstraOpenAISearchNode:
         astradb_endpoint: str,
         collection_name: str,
         query_embedding: list,
+        conversation_id: str,
         keyspace: str = "",
         # top_k: int = 4
     ):
@@ -108,6 +112,7 @@ class AstraOpenAISearchNode:
         collection = db.get_collection(collection_name)
         
         results = collection.find(
+          {"conversation_id": conversation_id},
           sort={"$vector": query_embedding},
           limit=20,
           include_similarity=True
