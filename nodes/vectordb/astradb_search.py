@@ -74,12 +74,15 @@ class AstraOpenAISearchNode:
 
         # 3) Return as a string joining list contents
         
-        formatted_results = [
-            result["content"]
+        search_output = [
+            {
+                "content": result.get("content"),
+                "timestamp": result.get("timestamp"),
+            }
             for result in results
         ]
         
-        return ("\n".join(formatted_results),)
+        return ("\n".join(json.dumps(search_output)),)
 
     def _generate_openai_embedding(self, text: str, embedding_model: str = "text-embedding-3-small"):
         openai_api_key = os.environ.get("OPENAI_API_KEY")
