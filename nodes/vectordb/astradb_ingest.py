@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-import time
+from datetime import datetime
 from typing import List, Tuple
 
 import dotenv
@@ -148,7 +148,7 @@ class AstraOpenAIIngestNode:
                 {
                     "content": chunk,
                     "conversation_id": conversation_id,
-                    "timestamp": time.now().isoformat(),
+                    "timestamp": datetime.now().isoformat(),
                     "$vector": embedding,
                 }
             )

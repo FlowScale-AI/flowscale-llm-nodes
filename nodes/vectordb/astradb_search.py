@@ -82,7 +82,7 @@ class AstraOpenAISearchNode:
             for result in results
         ]
         
-        return ("\n".join(json.dumps(search_output)),)
+        return (json.dumps(search_output),)
 
     def _generate_openai_embedding(self, text: str, embedding_model: str = "text-embedding-3-small"):
         openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -115,10 +115,9 @@ class AstraOpenAISearchNode:
         collection = db.get_collection(collection_name)
         
         results = collection.find(
-          {"conversation_id": conversation_id},
-          sort={"$vector": query_embedding},
+          {"conversation_id": conversation_id, "timestamp": {"$ne": None}},
+          sort={"timestamp": -1},
           limit=20,
-          include_similarity=True
         )
         
         result_list = []
