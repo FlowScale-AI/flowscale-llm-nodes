@@ -82,6 +82,8 @@ class AstraOpenAISearchNode:
             for result in results
         ]
         
+        sorted_search_output = sorted(search_output, key=lambda x: x["timestamp"], reverse=True)
+        
         return (json.dumps(search_output),)
 
     def _generate_openai_embedding(self, text: str, embedding_model: str = "text-embedding-3-small"):
