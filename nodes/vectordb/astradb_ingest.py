@@ -57,11 +57,8 @@ class AstraOpenAIIngestNode:
           1) Generate embedding for item_text using OpenAI.
           2) Store the text & embedding in Astra DB as a new document.
         Returns a status message.
-        """
-        logger.info("Starting ingestion process...")
-        
+        """        
         chunks = self._chunk_text(item_text, chunk_size=chunk_size)
-        logger.info(f"Splitting text into {len(chunks)} chunks.")
         
         if not chunks:
             return ("No text to ingest!",)
@@ -136,7 +133,6 @@ class AstraOpenAIIngestNode:
         client = DataAPIClient(token=final_astra_token)
         db = client.get_database_by_api_endpoint(final_astra_endpoint)
 
-        logger.info(f"Using collection: {collection_name} for ingestion.")
         collection = db.get_collection(collection_name)
 
         if len(chunks) != len(embeddings):
@@ -153,7 +149,6 @@ class AstraOpenAIIngestNode:
                 }
             )
 
-        logger.info(f"Inserting {len(documents)} documents into Astra DB...")
         insertion_result = collection.insert_many(documents)
         logger.info(f"Inserted {len(insertion_result.inserted_ids)} items.")
         return len(insertion_result.inserted_ids)

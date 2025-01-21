@@ -111,11 +111,10 @@ class AstraOpenAISearchNode:
         client = DataAPIClient(astradb_token)
         db = client.get_database_by_api_endpoint(astradb_endpoint)
         
-        logger.info(f"Searching in collection {collection_name} for embedding {query_embedding}")
         collection = db.get_collection(collection_name)
         
         results = collection.find(
-          {"conversation_id": conversation_id, "timestamp": {"$ne": None}},
+          {"conversation_id": conversation_id},
           sort={"timestamp": -1},
         )
         
