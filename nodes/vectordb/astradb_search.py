@@ -52,16 +52,9 @@ class AstraOpenAISearchNode:
         then sends the embedding to Astra DB to do a similarity search.
         Returns the JSON string of search results.
         """
-        # 1) Generate Embedding with OpenAI
-        embedding = self._generate_openai_embedding(search_query)
-        logger.info(f"Generated embedding: {embedding}")
-        # 2) Search in Astra DB
-        #    Since we don't have an out-of-the-box "AstraDBVectorStore" import here, 
-        #    you'd do one of two things:
-        #    a) Use an external library like langchain_astradb (then call vector_store.search(...)).
-        #    b) Use the Astra REST API to do a similarity search with your custom setup.
+        # embedding = self._generate_openai_embedding(search_query)
+        embedding = []
 
-        # For demonstration, let's do the simpler "direct REST to Astra" approach:
         results = self._search_astra_by_embedding(
             astradb_token, 
             astradb_endpoint, 
@@ -71,20 +64,18 @@ class AstraOpenAISearchNode:
             # keyspace,
             # top_k
         )
-
-        # 3) Return as a string joining list contents
         
         search_output = [
             {
                 "content": result.get("content"),
                 "timestamp": result.get("timestamp"),
             }
-            for result in results
+            for result in results if len(result.get("content")) > 10
         ]
-        
+            
         sorted_search_output = sorted(search_output, key=lambda x: x["timestamp"], reverse=True)
         
-        return (json.dumps(search_output),)
+        return (json.dumps(sorted_search_output),)
 
     def _generate_openai_embedding(self, text: str, embedding_model: str = "text-embedding-3-small"):
         openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -118,6 +109,7 @@ class AstraOpenAISearchNode:
         results = collection.find(
           {"conversation_id": conversation_id},
           sort={"timestamp": -1},
+          limit=15
         )
         
         result_list = []
