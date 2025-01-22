@@ -70,7 +70,7 @@ class AstraOpenAISearchNode:
                 "content": result.get("content"),
                 "timestamp": result.get("timestamp"),
             }
-            for result in results if len(result.get("content")) > 10
+            for result in results if len(result.get("content")) > 30
         ]
             
         sorted_search_output = sorted(search_output, key=lambda x: x["timestamp"], reverse=True)
