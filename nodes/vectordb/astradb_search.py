@@ -109,7 +109,6 @@ class AstraOpenAISearchNode:
         results = collection.find(
           {"conversation_id": conversation_id},
           sort={"timestamp": -1},
-          limit=15
         )
         
         result_list = []
