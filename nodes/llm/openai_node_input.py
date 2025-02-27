@@ -21,7 +21,7 @@ OPENAI_MODELS = [
     "o1-preview",
 ]
 
-class OpenAIAPI:
+class OpenAIAPIWithAPIKey:
 
     @classmethod
     def INPUT_TYPES(s):

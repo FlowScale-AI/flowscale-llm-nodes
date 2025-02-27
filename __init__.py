@@ -1,6 +1,7 @@
 print("Initializing Flowscale LLM Nodes")
 
 from .nodes.llm.openai import OpenAIAPI
+from .nodes.llm.openai_node_input import OpenAIAPIWithAPIKey
 from .nodes.llm.brand_voice import OpenAIBrandVoiceReformatter
 from .nodes.embedding.openai import OpenAIEmbedding
 from .nodes.vectordb.astradb import AstraDBStoreEmbeddingsNode
@@ -12,6 +13,7 @@ from .utilitynodes.webhook import WebhookSender
 
 NODE_CLASS_MAPPINGS = {
   "openai": OpenAIAPI,
+  "openai_with_api_key": OpenAIAPIWithAPIKey,
   "openai_brand_voice_reformatter": OpenAIBrandVoiceReformatter,
   "openai_embedding": OpenAIEmbedding,
   "astradb_store_embeddings": AstraDBStoreEmbeddingsNode,
@@ -25,6 +27,7 @@ NODE_CLASS_MAPPINGS = {
 
 NODE_DISPLAY_NAME_MAPPINGS = {
   "openai": "[FS] OpenAI",
+  "openai_with_api_key": "[FS] OpenAI (with API Key)",
   "openai_brand_voice_reformatter": "[FS] OpenAI Brand Voice Reformatter",
   "openai_embedding": "[FS] OpenAI Embedding",
   "astradb_store_embeddings": "[FS] AstraDB Store Embeddings",
