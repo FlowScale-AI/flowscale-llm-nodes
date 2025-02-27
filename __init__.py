@@ -1,3 +1,5 @@
+print("Initializing Flowscale LLM Nodes")
+
 from .nodes.llm.openai import OpenAIAPI
 from .nodes.llm.brand_voice import OpenAIBrandVoiceReformatter
 from .nodes.embedding.openai import OpenAIEmbedding
