@@ -54,7 +54,7 @@ class OpenAIAPIWithAPIKey:
             return "OpenAI API key not set"
         
         client = OpenAI(
-            api_key=os.environ.get("OPENAI_API_KEY"),
+            api_key=openai_api_key,
         )
         
         try:
