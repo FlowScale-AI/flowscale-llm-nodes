@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.docstore.document import Document
 from langchain_astradb import AstraDBVectorStore
 from astrapy.admin import parse_api_endpoint
