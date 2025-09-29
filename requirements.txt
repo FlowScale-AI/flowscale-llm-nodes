@@ -2,6 +2,7 @@ python-dotenv
 openai
 PyPDF2
 langchain
+langchain_community
 langchain-astradb
 astrapy
 requests
